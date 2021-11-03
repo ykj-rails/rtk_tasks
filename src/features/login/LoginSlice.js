@@ -16,7 +16,7 @@ export const fetchAsyncLogin = createAsyncThunk('login/post', async (auth) => {
 export const fetchAsyncRegister = createAsyncThunk(
   'login/register',
   async (auth) => {
-    const res = await axios.post(`${apiUrl}api/register`, auth, {
+    const res = await axios.post(`${apiUrl}api/register/`, auth, {
       headers: {
         'Content-Type': 'application/json',
       },
@@ -35,7 +35,7 @@ export const fetchAsyncProf = createAsyncThunk('login/get', async () => {
   return res.data
 })
 
-const LoginSlice = createSlice({
+const loginSlice = createSlice({
   name: 'login',
   initialState: {
     authen: {
@@ -70,10 +70,10 @@ const LoginSlice = createSlice({
   },
 })
 
-export const { editUsername, editPassword, toggleMode } = LoginSlice.actions
+export const { editUsername, editPassword, toggleMode } = loginSlice.actions
 
 export const selectAuthen = (state) => state.login.authen
 export const selectIsLoginView = (state) => state.login.isLoginView
 export const selectProfile = (state) => state.login.profile
 
-export default LoginSlice.reducer
+export default loginSlice.reducer
