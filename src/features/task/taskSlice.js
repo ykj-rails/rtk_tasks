@@ -34,7 +34,7 @@ export const fetchAsyncUpdate = createAsyncThunk('task/put', async (task) => {
 })
 
 export const fetchAsyncDelete = createAsyncThunk('task/delete', async (id) => {
-  const res = await axios.delete(`${apiUrl}${id}`, {
+  await axios.delete(`${apiUrl}${id}`, {
     headers: {
       Authorization: `JWT ${token}`,
       'Content-Type': 'application/json',
@@ -75,5 +75,47 @@ const taskSlice = createSlice({
       state.selectedTask = action.payload
     },
   },
-  extraReducers: (builder) => {},
+  extraReducers: (builder) => {
+    builder.addCase(fetchAsyncGet.fulfilled, (state, action) => {
+      return {
+        ...state,
+        tasks: action.payload,
+      }
+    })
+    builder.addCase(fetchAsyncCreate.fulfilled, (state, action) => {
+      return {
+        ...state,
+        tasks: [action.payload, ...state.tasks],
+      }
+    })
+    builder.addCase(fetchAsyncUpdate.fulfilled, (state, action) => {
+      return {
+        ...state,
+        tasks: state.tasks.map((t) =>
+          t.id === action.payload.id ? action.payload : t,
+        ),
+        selectedTask: action.payload,
+      }
+    })
+    builder.addCase(fetchAsyncDelete.fulfilled, (state, action) => {
+      return {
+        ...state,
+        tasks: state.tasks.filter((t) => t.id !== action.payload),
+        selectedTask: {
+          id: 0,
+          title: '',
+          created_at: '',
+          updated_at: '',
+        },
+      }
+    })
+  },
 })
+
+export const { editTask, selectTask } = taskSlice.actions
+
+export const selectSelectedTask = (state) => state.task.selectedTask
+export const selectEditedTask = (state) => state.task.editTask
+export const selectTasks = (state) => state.task.tasks
+
+export default taskSlice.reducer
