@@ -1,0 +1,20 @@
+.details h2 {
+  font-family: 'Comic Neue', cursive;
+  color: whitesmoke;
+  font-weight: bold;
+  text-align: center;
+  margin: 18px;
+}
+.details h3 {
+  font-family: 'Comic Neue', cursive;
+  color: whitesmoke;
+  font-weight: 300;
+  text-align: center;
+  margin: 30px;
+}
+.details p {
+  font-family: 'Comic Neue', cursive;
+  color: whitesmoke;
+  font-weight: 300;
+  font-size: 20px;
+}

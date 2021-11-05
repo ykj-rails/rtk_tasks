@@ -34,7 +34,7 @@ export const fetchAsyncUpdate = createAsyncThunk('task/put', async (task) => {
 })
 
 export const fetchAsyncDelete = createAsyncThunk('task/delete', async (id) => {
-  await axios.delete(`${apiUrl}${id}`, {
+  await axios.delete(`${apiUrl}/${id}`, {
     headers: {
       Authorization: `JWT ${token}`,
       'Content-Type': 'application/json',
@@ -46,7 +46,7 @@ export const fetchAsyncDelete = createAsyncThunk('task/delete', async (id) => {
 const taskSlice = createSlice({
   name: 'task',
   initialState: {
-    task: [
+    tasks: [
       {
         id: 0,
         title: '',
