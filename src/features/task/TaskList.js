@@ -16,6 +16,7 @@ const TaskList = () => {
     }
     fetchTaskProf()
   }, [dispatch])
+
   return (
     <div>
       <ul className={styles.taskList}>
