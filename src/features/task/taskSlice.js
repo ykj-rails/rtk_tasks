@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 
-const apiUrl = 'http://localhost:8000/api/tasks'
+const apiUrl = 'http://localhost:8000/api/tasks/'
 const token = localStorage.localJWT
 
 export const fetchAsyncGet = createAsyncThunk('task/get', async () => {
@@ -24,7 +24,7 @@ export const fetchAsyncCreate = createAsyncThunk('task/post', async (task) => {
 })
 
 export const fetchAsyncUpdate = createAsyncThunk('task/put', async (task) => {
-  const res = await axios.put(`${apiUrl}${task.id}`, task, {
+  const res = await axios.put(`${apiUrl}${task.id}/`, task, {
     headers: {
       Authorization: `JWT ${token}`,
       'Content-Type': 'application/json',
@@ -34,7 +34,7 @@ export const fetchAsyncUpdate = createAsyncThunk('task/put', async (task) => {
 })
 
 export const fetchAsyncDelete = createAsyncThunk('task/delete', async (id) => {
-  await axios.delete(`${apiUrl}/${id}`, {
+  await axios.delete(`${apiUrl}${id}/`, {
     headers: {
       Authorization: `JWT ${token}`,
       'Content-Type': 'application/json',
@@ -115,7 +115,7 @@ const taskSlice = createSlice({
 export const { editTask, selectTask } = taskSlice.actions
 
 export const selectSelectedTask = (state) => state.task.selectedTask
-export const selectEditedTask = (state) => state.task.editTask
+export const selectEditedTask = (state) => state.task.editedTask
 export const selectTasks = (state) => state.task.tasks
 
 export default taskSlice.reducer
