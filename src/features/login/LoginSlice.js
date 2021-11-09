@@ -36,6 +36,7 @@ export const fetchAsyncProf = createAsyncThunk('login/get', async () => {
 })
 
 const loginSlice = createSlice({
+  // actionの名前の一部になる
   name: 'login',
   initialState: {
     authen: {
@@ -70,10 +71,13 @@ const loginSlice = createSlice({
   },
 })
 
+// componentからdispatchするためのactionをexport
 export const { editUsername, editPassword, toggleMode } = loginSlice.actions
 
+// componentからstateを参照するための関数
 export const selectAuthen = (state) => state.login.authen
 export const selectIsLoginView = (state) => state.login.isLoginView
 export const selectProfile = (state) => state.login.profile
 
+// stateに登録するためにexport
 export default loginSlice.reducer

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import TaskItem from './TaskItem'
 import { fetchAsyncProf } from '../login/loginSlice'
@@ -9,6 +9,10 @@ const TaskList = () => {
   const tasks = useSelector(selectTasks)
   const dispatch = useDispatch()
 
+  const [count, setCount] = useState(0)
+  const handleClick = () => {
+    setCount((c) => c + 1)
+  }
   useEffect(() => {
     const fetchTaskProf = async () => {
       await dispatch(fetchAsyncGet())
@@ -19,11 +23,15 @@ const TaskList = () => {
 
   return (
     <div>
-      <ul className={styles.taskList}>
-        {tasks.map((task) => (
-          <TaskItem key={task.id} task={task} />
-        ))}
-      </ul>
+      <button onClick={handleClick}>クリック</button>
+      <div>
+        {count}
+        <ul className={styles.taskList}>
+          {tasks.map((task) => (
+            <TaskItem key={task.id} task={task} />
+          ))}
+        </ul>
+      </div>
     </div>
   )
 }
